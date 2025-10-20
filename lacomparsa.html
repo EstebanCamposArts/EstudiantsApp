@@ -23,7 +23,6 @@
       position: relative;
     }
 
-    /* Fondo con el logo tenue */
     body::before {
       content: '';
       position: fixed;
@@ -35,7 +34,6 @@
       filter: brightness(0.6);
     }
 
-    /* Contenedor tipo app */
     .app-container {
       width: 100%;
       max-width: 420px;
@@ -83,6 +81,46 @@
       letter-spacing: 0.5px;
     }
 
+    /* ====== FOTO SUPERIOR ====== */
+    .foto-superior {
+      text-align: center;
+      margin: 16px 18px;
+    }
+    .foto-superior img {
+      width: 100%;
+      max-width: 380px;
+      border-radius: 12px;
+      border: 2px solid rgba(255,255,255,0.15);
+      box-shadow: 0 6px 18px rgba(0,0,0,0.4);
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+    .foto-superior img:hover {
+      transform: scale(1.02);
+    }
+
+    /* ====== LIGHTBOX ====== */
+    .lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.9);
+      justify-content: center;
+      align-items: center;
+      z-index: 999;
+    }
+    .lightbox img {
+      max-width: 95%;
+      max-height: 95%;
+      border-radius: 12px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.7);
+      animation: fadeIn 0.3s ease;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.9); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
     h1 {
       text-align: center;
       font-size: 20px;
@@ -112,7 +150,6 @@
       opacity: 0.8;
     }
 
-    /* --- Menú lateral --- */
     .menu-overlay {
       position: fixed;
       top: 0;
@@ -173,33 +210,57 @@
       </div>
     </div>
 
+    <!-- FOTO SUPERIOR DE LA COMPARSA -->
+    <div class="foto-superior">
+      <img src="assets/images/lacomparsa.jpg" alt="Foto de la Comparsa" id="capitanesFoto">
+    </div>
+
     <h1>La Comparsa Estudiants d’Onil</h1>
 
     <div class="content">
       <p>
-        La <strong>Comparsa Estudiants d’Onil</strong> nació en el siglo XIX como una de las formaciones más jóvenes y dinámicas de las fiestas de Moros y Cristianos. Surgió de un grupo de amigos con inquietudes culturales, unidos por la música, la fiesta y el deseo de representar la elegancia y el conocimiento en el marco festero.
+        La <strong>Comparsa Estudiants d’Onil</strong> nació en el siglo XIX como una de las formaciones más jóvenes y dinámicas de las fiestas de Moros y Cristianos...
       </p>
       <p>
-        Desde sus primeros desfiles, los Estudiants se distinguieron por su estilo refinado y por el carácter alegre y respetuoso de sus componentes. Su presencia en las calles de Onil siempre ha estado marcada por la sobriedad de su indumentaria, el porte académico y un aire de distinción que los ha hecho inconfundibles dentro del mundo festero.
+        Desde sus primeros desfiles, los Estudiants se distinguieron por su estilo refinado y por el carácter alegre y respetuoso de sus componentes...
       </p>
       <p>
-        A lo largo de las décadas, la comparsa ha evolucionado al ritmo de la sociedad colivenca, manteniendo viva la esencia de aquellos primeros Estudiants que, con ilusión, comenzaron esta aventura festiva. En cada generación, nuevos miembros han tomado el relevo, aportando su energía y adaptando la tradición a los nuevos tiempos sin perder el respeto por la historia.
+        A lo largo de las décadas, la comparsa ha evolucionado al ritmo de la sociedad colivenca...
       </p>
       <p>
-        Su emblema —el libro abierto con los cubiertos cruzados— simboliza el equilibrio entre el saber y el disfrute, entre la cultura y la convivencia. Los Estudiants no solo representan a una comparsa, sino a una comunidad que vive la fiesta con pasión, elegancia y sentido de pertenencia.
+        Su emblema —el libro abierto con los cubiertos cruzados— simboliza el equilibrio entre el saber y el disfrute...
       </p>
       <p>
-        Hoy, la <em>Comparsa Estudiants d’Onil</em> continúa siendo un referente en las fiestas de Moros y Cristianos. Su compromiso con la música, la convivencia y el espíritu festero sigue tan vivo como el primer día, y esta nueva etapa digital busca mantener ese legado accesible a todos, uniendo pasado y futuro en un mismo sentimiento.
+        Hoy, la <em>Comparsa Estudiants d’Onil</em> continúa siendo un referente en las fiestas de Moros y Cristianos...
       </p>
     </div>
 
     <footer>© 2025 Comparsa Estudiants Onil</footer>
   </div>
 
+  <!-- LIGHTBOX -->
+  <div id="lightbox" class="lightbox" onclick="cerrarLightbox()">
+    <img id="lightboxImg" src="" alt="Foto Ampliada">
+  </div>
+
   <script>
     function toggleMenu() {
       const menu = document.getElementById('menuOverlay');
       menu.classList.toggle('open');
+    }
+
+    // Lightbox funcionalidad
+    const foto = document.getElementById('capitanesFoto');
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightboxImg');
+
+    foto.addEventListener('click', () => {
+      lightbox.style.display = 'flex';
+      lightboxImg.src = foto.src;
+    });
+
+    function cerrarLightbox() {
+      lightbox.style.display = 'none';
     }
   </script>
 </body>
