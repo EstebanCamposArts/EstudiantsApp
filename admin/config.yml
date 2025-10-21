@@ -1,46 +1,67 @@
-# Configuración del Back-end (Conexión a GitHub)
+# Configuración del Back-end (Conexión directa a tu repositorio público)
 backend:
   name: github 
-  # Nombre del repositorio en GitHub: TU_USUARIO/NOMBRE_DEL_REPOSITORIO
-  repo: 'tu_usuario/nombre_del_repositorio' 
-  branch: main # La rama principal donde quieres que se guarden los cambios
-  # Usa 'proxy_url' si estás en desarrollo local con Netlify
-  # proxy_url: http://localhost:8081/api/v1/github
+  # Nombre exacto de tu repositorio:
+  repo: 'EstebanCamposArts/EstudiantsApp' 
+  branch: main 
+  auth_scope: 'repo'
 
-# Habilitar la autenticación de GitHub (se recomienda usar Netlify Identity)
-auth_scope: 'repo'
+# Configuración de Medios (imágenes)
+media_folder: "assets/images" 
+public_folder: "/assets/images"
 
 # -----------------
-# Estructura del Contenido a Editar
+# Estructura del Contenido Editable (Tus archivos HTML)
+# El widget 'code' permite editar el HTML completo de la página.
 # -----------------
-
 collections:
   - name: "pages"
-    label: "Páginas Estáticas Principales"
+    label: "Páginas del Sitio"
     files:
-      # Configuración de 'altrescosetes.html'
       - file: "altrescosetes.html"
         label: "Altresolucetes"
         name: "altrescosetes"
         fields:
-          # Puedes usar un widget 'code' para que editen el HTML completo
-          - {label: "Código HTML Completo", name: "body", widget: "code", default: "<h1>Contenido por defecto...</h1>"}
+          - {label: "Contenido de la Página", name: "body", widget: "code"}
+      
+      - file: "elbrillofestero.html"
+        label: "El Brillo Festero"
+        name: "elbrillofestero"
+        fields:
+          - {label: "Contenido de la Página", name: "body", widget: "code"}
 
-      # Configuración de 'festes2026.html'
+      - file: "escuadres.html"
+        label: "Escuadras y Grupos"
+        name: "escuadres"
+        fields:
+          - {label: "Contenido de la Página", name: "body", widget: "code"}
+          
       - file: "festes2026.html"
         label: "Fiestas 2026"
         name: "festes2026"
         fields:
-          # O puedes hacer editable solo una parte específica (ej. entre <h1> y </h1>)
-          - {label: "Título de la Fiesta", name: "title", widget: "string", default: "Fiestas 2026"}
-          - {label: "Detalles del Evento (Markdown)", name: "details", widget: "markdown"}
-          - {label: "Fecha", name: "date", widget: "datetime"}
-
-      # Configuración de 'index.html'
+          - {label: "Contenido de la Página", name: "body", widget: "code"}
+          
       - file: "index.html"
-        label: "Página Principal"
+        label: "Página de Inicio (Home)"
         name: "index"
         fields:
-          - {label: "Contenido de la Portada", name: "content", widget: "markdown"}
+          - {label: "Contenido de la Página", name: "body", widget: "code"}
 
-      # Añade el resto de tus archivos aquí siguiendo el mismo patrón...
+      - file: "lacomparsa.html"
+        label: "La Comparsa"
+        name: "lacomparsa"
+        fields:
+          - {label: "Contenido de la Página", name: "body", widget: "code"}
+
+      - file: "lesbandesdemusica.html"
+        label: "Bandas de Música"
+        name: "lesbandesdemusica"
+        fields:
+          - {label: "Contenido de la Página", name: "body", widget: "code"}
+          
+      - file: "themigha.html"
+        label: "The Migha"
+        name: "themigha"
+        fields:
+          - {label: "Contenido de la Página", name: "body", widget: "code"}
