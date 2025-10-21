@@ -1,69 +1,49 @@
-# Configuración del Back-end (Conexión a la API de Netlify Git Gateway)
 backend:
-  name: git-gateway # ¡CORRECCIÓN CLAVE! Usa la API de Netlify.
-  # El resto de la configuración de repo, branch y auth_scope es ignorada por Git Gateway,
-  # pero la dejamos por si acaso.
-  repo: 'EstebanCamposArts/EstudiantsApp' 
-  branch: main 
-  auth_scope: 'repo'
+  name: git-gateway
+  branch: main
 
-# ----------------
-# Configuración de Medios (imágenes)
-# ----------------
-# La carpeta 'assets/images' de tu repositorio
-media_folder: "assets/images" 
+media_folder: "assets/images"
 public_folder: "/assets/images"
 
-# ----------------
-# Estructura del Contenido Editable (Tus archivos HTML)
-# ----------------
 collections:
   - name: "pages"
     label: "Páginas del Sitio"
     files:
-      # Usamos el widget 'code' para permitir la edición completa del HTML.
       - file: "altrescosetes.html"
         label: "Altresolucetes"
         name: "altrescosetes"
         fields:
           - {label: "Contenido de la Página (HTML)", name: "body", widget: "code"}
-      
       - file: "elbrillofestero.html"
         label: "El Brillo Festero"
         name: "elbrillofestero"
         fields:
           - {label: "Contenido de la Página (HTML)", name: "body", widget: "code"}
-
       - file: "escuadres.html"
         label: "Escuadras y Grupos"
         name: "escuadres"
         fields:
           - {label: "Contenido de la Página (HTML)", name: "body", widget: "code"}
-          
       - file: "festes2026.html"
         label: "Fiestas 2026"
         name: "festes2026"
         fields:
           - {label: "Contenido de la Página (HTML)", name: "body", widget: "code"}
-          
       - file: "index.html"
         label: "Página de Inicio (Home)"
         name: "index"
         fields:
           - {label: "Contenido de la Página (HTML)", name: "body", widget: "code"}
-
       - file: "lacomparsa.html"
         label: "La Comparsa"
         name: "lacomparsa"
         fields:
           - {label: "Contenido de la Página (HTML)", name: "body", widget: "code"}
-
       - file: "lesbandesdemusica.html"
         label: "Bandas de Música"
         name: "lesbandesdemusica"
         fields:
           - {label: "Contenido de la Página (HTML)", name: "body", widget: "code"}
-          
       - file: "themigha.html"
         label: "The Migha"
         name: "themigha"

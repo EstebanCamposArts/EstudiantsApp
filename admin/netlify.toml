@@ -1,0 +1,14 @@
+[build]
+  publish = "/"        # carpeta raíz de tus HTML
+  command = ""         # sin build, directo HTML
+
+[[redirects]]
+  from = "/admin"
+  to = "/admin/index.html"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/.netlify/git/*"
+  to = "/.netlify/git/:splat"
+  status = 200
