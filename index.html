@@ -4,6 +4,13 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Comparsa Estudiants Onil</title>
+  
+  <!-- 
+  IMPORTANTE: CÓDIGO AÑADIDO PARA HABILITAR LA REDIRECCIÓN DE NETLIFY IDENTITY.
+  Esto asegura que los enlaces de "Olvidé mi contraseña" funcionen correctamente.
+  -->
+  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+
   <style>
     * {
       margin: 0;
@@ -167,5 +174,23 @@
 
   <footer>© 2025 Comparsa Estudiants Onil</footer>
 
+  <!-- 
+  SCRIPT PARA FORZAR LA REDIRECCIÓN A /admin/ 
+  cuando se detecta un token de Netlify Identity en la URL (como los de "Olvidé mi contraseña").
+  -->
+  <script>
+    if (window.netlifyIdentity) {
+        netlifyIdentity.on('init', function (user) {
+            // Comprueba si hay un hash en la URL (token de recuperación, etc.)
+            if (window.location.hash) {
+                // Si la página actual NO es el editor (/admin/), redirige al editor.
+                if (window.location.pathname !== '/admin/' && window.location.hash.includes('token')) {
+                    // Mueve el hash (token) a la URL del editor.
+                    window.location.href = '/admin/' + window.location.hash;
+                }
+            }
+        });
+    }
+  </script>
 </body>
 </html>
