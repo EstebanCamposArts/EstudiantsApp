@@ -6,15 +6,12 @@
     <title>Panel de Control CMS</title>
     
     <!-- 1. Carga la librería Decap CMS (Versión 3.x) -->
-    <!-- Esto cargará el editor y buscará el config.yml -->
     <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
     
     <!-- 2. Carga el Widget de Netlify Identity -->
-    <!-- Este widget maneja el inicio de sesión y la autenticación -->
     <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 
     <style>
-      /* Estilo básico para centrar el loader */
       body {
         font-family: 'Inter', sans-serif;
         background-color: #0d1117;
@@ -35,51 +32,45 @@
     <div id="loader">Cargando Panel de Administración...</div>
 
     <script>
-      // **********************************************
-      // CONFIGURACIÓN CRÍTICA DE NETLIFY IDENTITY
-      // **********************************************
-      
-      // La URL de tu sitio en Netlify. Se usa para inicializar Identity.
-      // Esta línea es la que resuelve el error "Failed to load settings from /.netlify/identity"
       const SITE_URL = 'https://chic-marzipan-8a5cf6.netlify.app';
 
       if (typeof netlifyIdentity !== 'undefined') {
-          // Inicialización explícita del widget.
-          netlifyIdentity.init({
-              APIUrl: `${SITE_URL}/.netlify/identity`
-          });
+          // Inicialización explícita de Netlify Identity
+          netlifyIdentity.init({ APIUrl: `${SITE_URL}/.netlify/identity` });
 
-          // Listener para la carga inicial.
+          // Listener al iniciar Identity
           netlifyIdentity.on('init', user => {
-            // Si el usuario existe, el CMS cargará.
-            if (user) {
-              document.getElementById('loader').textContent = 'Usuario detectado. Cargando Decap CMS...';
-            } 
-            
-            // Si hay un token de recuperación/confirmación en la URL y no hay usuario, abre el modal.
-            else if (window.location.hash) {
-                netlifyIdentity.open();
-            }
-          });
-
-          // Listener para el inicio de sesión.
-          netlifyIdentity.on('login', user => {
-              // Redirige al usuario a la URL base del CMS después de loguearse.
-              // Esto ayuda a forzar la carga completa del editor.
               if (user) {
-                  document.getElementById('loader').textContent = 'Inicio de sesión exitoso. Redirigiendo...';
-                  // Borra el hash de la URL si existe para prevenir bucles de redirección.
-                  if(window.location.hash) {
-                      window.location.hash = '';
+                  document.getElementById('loader').textContent = 'Usuario detectado. Cargando Decap CMS...';
+                  // Inicializa CMS
+                  if (typeof window.CMS !== 'undefined') {
+                      window.CMS.init();
                   }
-                  // El CMS debería cargarse automáticamente en este punto.
+              } else if (window.location.hash) {
+                  netlifyIdentity.open();
               }
           });
-          
+
+          // Listener al iniciar sesión
+          netlifyIdentity.on('login', user => {
+              if (user) {
+                  document.getElementById('loader').textContent = 'Inicio de sesión exitoso. Cargando CMS...';
+                  if (window.location.hash) window.location.hash = '';
+                  if (typeof window.CMS !== 'undefined') {
+                      window.CMS.init();
+                  }
+              }
+          });
+
+          // Opcional: Listener al cerrar sesión
+          netlifyIdentity.on('logout', () => {
+              document.getElementById('loader').textContent = 'Sesión cerrada. Recargando página...';
+              window.location.reload();
+          });
+
       } else {
-        document.getElementById('loader').textContent = 'Error: netlify-identity-widget.js no se ha cargado.';
+          document.getElementById('loader').textContent = 'Error: netlify-identity-widget.js no se ha cargado.';
       }
-      
     </script>
 </body>
 </html>
