@@ -1,153 +1,190 @@
 <!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <title>Comparsa Estudiants Onil</title>
+<html lang="es"><head>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>El Librillo Festero – Comparsa Estudiants Onil</title>
   <style>
-    /* ======== RESET ======== */
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
-
-    html, body {
-      width: 100%;
-      min-height: 100vh;
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-      background: linear-gradient(135deg, #000000 0%, #0a1929 100%);
-      color: #ffffff;
+    body {
+      background: #000;
+      color: #fff;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
       display: flex;
-      flex-direction: column;
-      align-items: center;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
       overflow-x: hidden;
       position: relative;
-      padding: env(safe-area-inset-top) 20px 20px;
     }
-
-    /* ======== FONDO CON LOGO (20% OPACIDAD) ======== */
+    /* Fondo tenue con logo */
     body::before {
       content: '';
-      position: absolute;
+      position: fixed;
       inset: 0;
       background: url('assets/images/Logo_Estudiantes_FondoC.jpg') no-repeat center;
-      background-size: 50%;
-      opacity: 0.2; /* 20% */
+      background-size: 90%;
+      opacity: 0.12;
       z-index: -1;
-      pointer-events: none;
-      filter: brightness(1.1);
+      filter: brightness(0.6);
     }
-
-    /* ======== CABECERA CON LOGO ======== */
+    .app-container {
+      width: 100%;
+      max-width: 420px;
+      background: rgba(0, 0, 0, 0.9);
+      min-height: 100vh;
+      border-left: 1px solid rgba(255,255,255,0.05);
+      border-right: 1px solid rgba(255,255,white,0.05);
+      position: relative;
+      overflow-x: hidden;
+    }
     header {
-      text-align: center;
-      margin-top: 30px;
-      margin-bottom: 10px;
-      animation: fadeInDown 0.8s ease;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 16px;
+      position: sticky;
+      top: 0;
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      z-index: 10;
     }
-
     header img {
-      width: 160px;
+      width: 42px;
       height: auto;
-      margin-bottom: 12px;
-      filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.6));
     }
-
-    .main-title {
-      font-size: clamp(1.5rem, 5vw, 2.2rem);
-      font-weight: 700;
-      letter-spacing: 1px;
-      text-shadow: 0 2px 6px rgba(0,0,0,0.6);
+    .menu-btn {
+      font-size: 24px;
+      cursor: pointer;
+      color: #fff;
+      user-select: none;
     }
-
-    .sub-title {
-      display: block;
-      margin-top: 4px;
-      font-size: 0.9rem;
-      font-weight: 500;
-      color: #b3b3b3;
+    .header-title {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 13px;
+      font-weight: 600;
+      color: #00ffcc;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
     }
-
-    @keyframes fadeInDown {
-      from { opacity: 0; transform: translateY(-20px); }
-      to { opacity: 1; transform: translateY(0); }
+    h1 {
+      text-align: center;
+      font-size: 20px;
+      margin: 22px 0;
+      background: linear-gradient(90deg, #ffffff, #00ffcc);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
-
-    /* ======== BOTONES ======== */
-    .button-group {
+    .content {
+      padding: 0 18px 60px;
+      line-height: 1.6;
+      font-size: 15px;
+      color: #e5e5e5;
+      text-align: justify;
+    }
+    .content h2 {
+      margin-top: 24px;
+      font-size: 18px;
+      color: #fff;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+      padding-bottom: 6px;
+    }
+    .content p, .content li {
+      margin-bottom: 1em;
+    }
+    .content ul {
+      list-style: disc;
+      margin-left: 20px;
+    }
+    footer {
+      text-align: center;
+      font-size: 12px;
+      color: #777;
+      padding: 18px 0;
+      opacity: 0.8;
+    }
+    /* Menú desplegable lateral */
+    .menu-overlay {
+      position: fixed;
+      top: 0;
+      right: 0;
+      height: 100%;
+      width: 0;
+      overflow: hidden;
+      background: rgba(0, 0, 0, 0.97);
+      backdrop-filter: blur(8px);
+      transition: width 0.3s ease;
+      z-index: 100;
+    }
+    .menu-overlay.open {
+      width: 70%;
+    }
+    .menu-items {
+      margin-top: 80px;
       display: flex;
       flex-direction: column;
       gap: 18px;
-      width: 100%;
-      max-width: 340px;
-      margin-top: 40px;
-      margin-bottom: 60px;
-      animation: fadeInUp 1.2s ease;
+      padding: 0 24px;
     }
-
-    @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(30px); }
-      to { opacity: 1; transform: translateY(0); }
+    .menu-items a {
+      color: #fff;
+      text-decoration: none;
+      font-size: 16px;
+      font-weight: 500;
+      transition: color 0.2s ease;
     }
-
-    .btn {
-      background: rgba(255, 255, 255, 0.1);
-      color: #ffffff;
-      border: 1px solid rgba(255, 255, 255, 0.25);
-      border-radius: 20px;
-      padding: 16px 0;
-      font-size: 17px;
-      font-weight: 600;
-      text-align: center;
-      cursor: pointer;
-      transition: all 0.25s ease;
-      backdrop-filter: blur(8px);
-      box-shadow: 0 4px 12px rgba(0,0,0,0.25);
-    }
-
-    .btn:hover {
-      background: rgba(255, 255, 255, 0.2);
-      border-color: rgba(255, 255, 255, 0.5);
-      transform: translateY(-3px);
-      box-shadow: 0 6px 16px rgba(0,0,0,0.35);
-    }
-
-    .btn:active {
-      transform: scale(0.98);
-      box-shadow: 0 3px 8px rgba(0,0,0,0.3);
-    }
-
-    /* ======== PIE ======== */
-    footer {
-      font-size: 0.8rem;
-      color: #888;
-      margin-bottom: 20px;
-      text-align: center;
-      opacity: 0.7;
+    .menu-items a:hover {
+      color: #00ffcc;
     }
   </style>
+
 </head>
 <body>
 
-  <header>
-    <img src="assets/images/Logo_Estudiantes_FondoC.jpg" alt="Logo Comparsa Estudiants Onil" />
-    <h1 class="main-title">COMPARSA ESTUDIANTS ONIL</h1>
-    <span class="sub-title">APP WEB OFICIAL</span>
-  </header>
+  <div class="app-container">
+    <header>
+      <img src="assets/images/Logo_Estudiantes_FondoC.jpg" alt="Logo Estudiants Onil">
+      <h2 class="header-title">Comparsa Estudiants Onil</h2>
+      <div class="menu-btn" onclick="toggleMenu()">☰</div>
+    </header>
 
-  <main class="button-group">
-    <button class="btn">La Comparsa</button>
-    <button class="btn">El Librillo Festero</button>
-    <button class="btn">Festes 2026</button>
-    <button class="btn">Escuadres</button>
-    <button class="btn">The Migha</button>
-    <button class="btn">Les Bandes de Música</button>
-    <button class="btn">Altres Cosetes</button>
-  </main>
+    <div class="menu-overlay" id="menuOverlay">
+      <div class="menu-items">
+        <a href="index.html">🏠 Inicio</a>
+        <a href="lacomparsa.html">📖 La Comparsa</a>
+        <a href="ellibrillofestero.html">📘 El Librillo Festero</a>
+        <a href="festes2026.html">🎉 Festes 2026</a>
+        <a href="escuadres.html">👥 Escuadres</a>
+        <a href="themigha.html">🎭 The Migha</a>
+        <a href="lesbandesdemusica.html">🎺 Les Bandes de Música</a>
+        <a href="altrescosetes.html">✨ Altres Cosetes</a>
+      </div>
+    </div>
 
-  <footer>© 2025 Comparsa Estudiants Onil</footer>
+    <h1>Altres Cosetes Festeres</h1>
 
-</body>
-</html>
+    <div class="content">
+      <p><img src="assets/images/lacomparsa.jpg" style="max-width: 100%; display: block; margin: 8px auto;"></p><p>Espacio para colocar cualquier tipo de noticia, anuncio o reflexión.</p>
+    </div>
+
+    <footer>© 2025 Comparsa Estudiants Onil</footer>
+  </div>
+
+  <script>
+    function toggleMenu() {
+      const menu = document.getElementById('menuOverlay');
+      menu.classList.toggle('open');
+    }
+  </script>
+
+
+
+
+</body></html>
